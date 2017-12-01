@@ -11,9 +11,14 @@ What things you need to install to be able to run this project
 PHP
 MySQL
 Apache Server to run Localhost
+Node
+NPM
 ```
 
 You can download the full package on [Wamp](http://www.wampserver.com/en/)
+
+# Install
+Once you have cloned or download the repository you should run `npm install` to run all dependencies. Your node version should be +8
 
 ## Contributing
 Please read [CONTRIBUTING.md](https://github.com/SDBLV/bbox/blob/develop/wiki/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
