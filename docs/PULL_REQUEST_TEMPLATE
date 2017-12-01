@@ -1,0 +1,22 @@
+#### What does this PR do?
+- Use the description to tell your reviewer how you ended up with this solution. What did you try that didn't work? Why is this the right solution?
+
+#### Where should the reviewer start?
+- Mention the key files solving the current feature
+
+#### How should this be manually tested? (if applies)
+1. :one:
+2. :two:
+3. :tada:
+
+#### Any background context you want to provide? (optional)
+- Be sure to link to any secondary material that can add more context
+
+#### What are the relevant tickets? (optional)
+- [BBOX-](https://beliveo.atlassian.net/browse/BBOX-)
+
+#### Screenshots (if appropriate)
+:camera:
+
+#### Questions
+- Ask for specific feedback — e.g. if you are worried that the call to the `fooBarFrobber` could be avoided, let them know that so they can focus their effort.
