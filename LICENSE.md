@@ -1,6 +1,6 @@
 # MIT License
 
-Copyright (c) 2017 Uriel Contreras
+Copyright (c) 2017 Beliveo Mexico Software Development Team
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
