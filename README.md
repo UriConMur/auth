@@ -1,32 +1,33 @@
 # bBox Platform
-
 This is the main platform to contain the main bBox Infrastructure
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
-
-What things you need to install the software and how to install them
+What things you need to install to be able to run this project
 
 ```
-GIT Terminal
-Apache Server to run PHP Projects in Localhost
+PHP
+MySQL
+Apache Server to run Localhost
 ```
 
-### Installing
-
-Once you have your GIT Bash you have to create a SSH Key for your local machine, so GitHub can accept your connection from your computer to your GitHub account.
-
-Please follow the next guide.
-[Add SSH Key](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/)
+You can download the full package on [Wamp](http://www.wampserver.com/en/)
 
 ## Contributing
+Please read [CONTRIBUTING.md](https://github.com/SDBLV/bbox/blob/develop/wiki/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
-Please read [CONTRIBUTING.md](#) for details on our code of conduct, and the process for submitting pull requests to us.
+## Authors
+
+* **Uriel Contreras** - *Initial work*
+* **Salvador Gonzalez**
+* **Paola Martinez**
+* **Juan Ruvalcaba**
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Versioning
-
-We use [SemVer](http://semver.org/) for versioning.
+We use [SemVer](http://semver.org/spec/v2.0.0.html) for versioning.
 For the versions available, see the [tags on this repository]().
