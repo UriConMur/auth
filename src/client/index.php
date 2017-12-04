@@ -8,7 +8,7 @@
 	<body>
 			<div class="contenedor-form">
 				<form action="#" class="form">
-					<h2>Iniciar Sesión</h2>
+					<h2>Login</h2>
 					<input type="text" placeholder="Usuario" required>
 					<input type="password" placeholder="Contraseña" required>
 					<input type="submit" value="Iniciar Sesión">
