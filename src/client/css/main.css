@@ -5,21 +5,21 @@
 }
 
 body {
-	background: url("Fondo.jpg");
-	background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
   font-family: Verdana;
 }
 
 .contenedor-form {
-    background: rgba(0,0,0,.7);
+    background: #fff;
     width: 100%;
     max-width: 500px;
     margin: 200px auto;
-    color: #fff;
+    color: #000000;
     border-radius: 5px;
     position: relative;
+}
+
+.contenedor-form {
+	box-shadow: 2px 2px 5px #999;
 }
 
 .form {
@@ -28,7 +28,7 @@ body {
 }
 
 .contenedor-form h2 {
-  top: 0;
+	top: 0;
   right: 0;
   margin: 0 0 28px 0;
   font-size: 20px;
@@ -39,29 +39,30 @@ body {
 .contenedor-form input[type="text"],
 .contenedor-form input[type="password"] {
   outline: none;
-  background: rgba(0,0,0,.5);
+  background: #fff;
   display: block;
   width: 100%;
   padding: 10px 15px;
   color: #fff;
   border: none;
   border-radius: 2px;
-  border-bottom: 4px solid #ff851b;
+  border-bottom: 4px solid #12bae4;
   font-family: Verdana;
   font-size: 14px;
   font-weight: normal;
   margin: 0 0 20px 0;
   transition: all .5s ease;
+	box-shadow: 4px 2px 10px 2px #a5a5a5;
 }
 
 .contenedor-form input[type="text"]:focus,
 .contenedor-form input[type="password"]:focus {
-    border-bottom: 4px solid #0075d9;
+    border-bottom: 4px solid #7ac943;
   }
 
 .contenedor-form input[type="submit"]{
-    background: #ff851b;
-    color>#fff;
+    background: #7ac943;
+    color: #fff;
     border: none;
     width: 100%;
     padding: 10px 0;
@@ -77,7 +78,7 @@ body {
   }
 
 .contenedor-form .reset-password {
-    background: rgba(0,117,217,0.7);
+    background: #12bae4;
     width: 100%;
     padding: 15px 0;
     text-align: center;
@@ -91,5 +92,15 @@ body {
   color: #fff;
   text-decoration: none;
   font-size: 16px;
+}
 
+.logo-div {
+	position: relative;
+}
+
+.logo-div img{
+	position: absolute;
+	right: 4px;
+	top: -26px;
+	height: 50px;
 }
