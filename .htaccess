@@ -1,4 +1,4 @@
-DirectoryIndex src/client/index.php
+DirectoryIndex src/client/pages/home/index.php
 
 Options -Indexes
 Options +FollowSymlinks

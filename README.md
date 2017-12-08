@@ -13,6 +13,7 @@ MySQL
 Apache Server to run Localhost
 Node
 NPM
+Composer
 ```
 
 You can download the full package on [Wamp](http://www.wampserver.com/en/)
@@ -36,3 +37,6 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 ## Versioning
 We use [SemVer](http://semver.org/spec/v2.0.0.html) for versioning.
 For the versions available, see the [tags on this repository]().
+
+## Framework
+We use [Slim](https://www.slimframework.com) framework for API calls and backend services, remember to setup correctly your `hosts` and `httpd-vhosts.conf` files.
