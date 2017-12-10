@@ -5,20 +5,17 @@
   "description": "Beliveo Business Operations exchange",
   "license": "MIT",
   "contributors": [
-    "Uriel Contreras (uriel.contreras@beliveo.com)"
+    "Uriel Contreras (uriel.contreras@beliveo.com)",
+    "Uriel Contreras (uriel.contreras@beliveo.com)",
+    "Uriel Contreras (uriel.contreras@beliveo.com)",
+
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/SDBLV/bbox.git"
-  },
-  "scripts": {
-    "pretest": "phplint 'src/**/*.php'"
+    "url": "https://github.com/SDBLV/bbox-login.git"
   },
   "dependencies": {
     "font-awesome": "4.7.0",
-    "jquery": "^3.2.1"
-  },
-  "devDependencies": {
-    "phplint": "~1.0.0"
+    "jquery": "^3.2.1",
   }
 }
