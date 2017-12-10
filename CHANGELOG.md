@@ -16,8 +16,11 @@ Features Removal
 ## [Unreleased]
 
 ### Added
-- Wiki Added to the bBox platform
+- Add Wiki to bbox-login
+- Add API Integration Slimp
+- Login
+  - Add Login Interface
 
-## ============= RELEASES 
+## ============= RELEASES
 
 [Unreleased]: https://github.com/SDBLV/bbox
