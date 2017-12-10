@@ -6,9 +6,9 @@
   "license": "MIT",
   "contributors": [
     "Uriel Contreras (uriel.contreras@beliveo.com)",
-    "Uriel Contreras (uriel.contreras@beliveo.com)",
-    "Uriel Contreras (uriel.contreras@beliveo.com)",
-
+    "Salvador Gonzalez (salvador.gonzalez@beliveo.com)",
+    "Paola Martinez (paola.martinez@beliveo.com)",
+    "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "repository": {
     "type": "git",
@@ -16,6 +16,6 @@
   },
   "dependencies": {
     "font-awesome": "4.7.0",
-    "jquery": "^3.2.1",
+    "jquery": "^3.2.1"
   }
 }
