@@ -10,6 +10,9 @@
     "Paola Martinez (paola.martinez@beliveo.com)",
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
+  "scripts": {
+    "prepush": "phpcs src/"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/SDBLV/bbox-login.git"

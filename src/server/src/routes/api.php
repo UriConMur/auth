@@ -1,24 +1,23 @@
 <?php
-
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app = new \Slim\App;
 
-$app->post('/user/', function(Request $request, Response $response){
+$app->post('/user/login/', function (Request $request, Response $response) {
     $user = trim($request->getParam("userName"));
     $pass = trim($request->getParam("password"));
     $code = 200;
     switch ($code) {
-      case 200:
-          $message = "Usuario encontrado";
-        break;
-      case 404:
+        case 200:
+            $message = "Usuario encontrado";
+            break;
+        case 404:
             $message = "Not found";
-          break;
-      case 409:
+            break;
+        case 409:
             $message = "Usuario no encontrado";
-          break;
+            break;
     }
     $body = new stdClass();
     $status = new stdClass();
