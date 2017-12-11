@@ -15,35 +15,44 @@
 						<h2>Login</h2>
 						<img src="src/client/pages/home/img/beliveo logo.png" border="0">
 					</div>
-					<input type="text" placeholder="Usuario" required>
-					<input type="password" placeholder="Contraseña" required>
-					<input type="submit" value="Iniciar Sesión">
+					<input id="username" type="text" placeholder="Usuario" required>
+					<input id="password" type="password" placeholder="Contraseña" required>
+					<input id="submit_form" type="submit" value="Iniciar Sesión">
 				</form>
 			</div>
 	</body>
 	<script>
-			var api_url = "<?php echo $_ENV['DOMAIN'].$_ENV['API']; ?>";
+
 
 	    $(document).ready(function(){
-	        function get_url_list(){
-	            $.ajax({
-	                type:   "GET",
-	                contentType: 'application/json',
-	                url: api_url+"/123",
-	                dataType: "json",
-	                data:  "",
-	                cache:  false,
-	                beforeSend: function(){},
-	                success: function(data, textStatus, jqXHR){
-	                    var url = data;
-	                    console.log(data);
-	                },
-	                error: function(jqXHR, textStatus, errorThrown){
-	                    console.log(jqXHR);
-	                }
-	            });
-	        }
-	        get_url_list();
+	        var api_url = "<?php echo $_ENV['DOMAIN'].$_ENV['API']; ?>";
+
+					$("#submit_form").click(function(e){
+						e.preventDefault();
+						var user = $("#username").val();
+						var pass = $("#password").val();
+						console.log(user, pass);
+						var data_json = JSON.stringify({userName: user, password: pass});
+						$.ajax({
+								type:   "POST",
+								contentType: 'application/json',
+								url: api_url+"/user/",
+								dataType: "json",
+								data:  data_json,
+								cache:  false,
+								beforeSend: function(){},
+								success: function(data, textStatus, jqXHR){
+										var url = data;
+										data = eval(data);
+										console.log(data);
+								},
+								error: function(jqXHR, textStatus, errorThrown){
+										console.log(jqXHR);
+								}
+						});
+					});
+
 	    });
+
 	</script>
 </html>
