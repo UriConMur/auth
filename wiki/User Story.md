@@ -1,11 +1,11 @@
-#Introduction
+# Introduction
 
 The product owner will obtain the requirements of clients and users for this process the following user story template is occupied:
 
 <center> <img src= https://goo.gl/gFMuPa /></center>
 </br>
 
-#What's Next?
+# What's Next?
 If you belong to the Scrum team, the next step is to visit the Software Development Process document.
 
 For more information visit:
