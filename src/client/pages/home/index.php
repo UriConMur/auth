@@ -1,4 +1,4 @@
-<?php include_once '../../../../config/index.php'; ?>
+<?php include_once '../../../../config/environment.php'; ?>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,12 +12,12 @@
 			<div class="contenedor-form">
 				<form action="#" class="form">
 					<div class="logo-div">
-						<h2>Login</h2>
+						<h2>Beliveo Authentication System</h2>
 						<img src="src/client/pages/home/img/beliveo logo.png" border="0">
 					</div>
-					<input type="text" placeholder="Usuario" required>
-					<input type="password" placeholder="Contraseña" required>
-					<input type="submit" value="Iniciar Sesión">
+					<input type="text" placeholder="User" required>
+					<input type="password" placeholder="Password" required>
+					<input type="submit" value="Log In">
 				</form>
 			</div>
 	</body>
