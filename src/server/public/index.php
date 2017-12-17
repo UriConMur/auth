@@ -1,4 +1,15 @@
 <?php
+/**
+ * PHP Version 5
+ *
+ * Server Index Doc Comment
+ *
+ * @category File
+ * @package  Server
+ * @author   Salvador Gonzalez <salvador.gonzalez@beliveo.com>
+ * @license  https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
+ * @link     http://www.beliveo.net/bbox-login
+ */
 require '../../../vendor/autoload.php';
 require '../../../config/environment.php';
 
