@@ -11,7 +11,8 @@
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "scripts": {
-    "prepush": "phpcs src/"
+    "sniff": "phpcs src/ & phpcs --report=summary src/",
+    "fix": "phpcbf src/"
   },
   "repository": {
     "type": "git",
