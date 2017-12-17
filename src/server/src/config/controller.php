@@ -7,17 +7,17 @@
  * @category File
  * @package  Controller
  * @author   Salvador Gonzalez <salvador.gonzalez@beliveo.com>
- * @license  hhtp://www.localhost.com/LICENSE.html GNU General Public License
- * @link     hhtp://www.localhost.com/bbox-login
+ * @license  https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
+ * @link     http://www.beliveo.net/bbox-login
  */
 
 /**
  * Function getDBData
  * 
- * @param type $sql    Consulta
- * @param type $case   Caso en SP
- * @param type $data   Valores
- * @param type $editor Usuario
+ * @param type $sql    Query
+ * @param type $case   SP Case
+ * @param type $data   Values
+ * @param type $editor User
  * 
  * @return type
  */
@@ -45,10 +45,10 @@ function getDBData($sql, $case = 0, $data = 0, $editor = 0)
 /**
  * Function setDBData
  * 
- * @param type $sql    Consulta
- * @param type $case   Caso en SP
- * @param type $data   Valores
- * @param type $editor Usuario
+ * @param type $sql    Query
+ * @param type $case   SP Case
+ * @param type $data   Values
+ * @param type $editor User
  * 
  * @return type
  */

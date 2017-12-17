@@ -7,8 +7,8 @@
  * @category File
  * @package  DB
  * @author   Salvador Gonzalez <salvador.gonzalez@beliveo.com>
- * @license  hhtp://www.localhost.com/LICENSE.html GNU General Public License
- * @link     hhtp://www.localhost.com/bbox-login
+ * @license  https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
+ * @link     http://www.beliveo.net/bbox-login
  */
 
 /**
@@ -18,8 +18,8 @@
  * @package    DataBase
  * @subpackage Controller
  * @author     Salvador Gonzalez <salvador.gonzalez@beliveo.com>
- * @license    hhtp://www.localhost.com/LICENSE.html GNU General Public License
- * @link       hhtp://www.localhost.com/bbox-login
+ * @license    https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
+ * @link       http://www.beliveo.net/bbox-login
  */
 class DataBase
 {

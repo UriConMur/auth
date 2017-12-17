@@ -7,8 +7,8 @@
  * @category File
  * @package  DB
  * @author   Salvador Gonzalez <salvador.gonzalez@beliveo.com>
- * @license  hhtp://www.localhost.com/LICENSE.html GNU General Public License
- * @link     hhtp://www.localhost.com/bbox-login
+ * @license  https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
+ * @link     http://www.beliveo.net/bbox-login
  */
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
@@ -26,13 +26,13 @@ $app->post(
             $code = 200;
             switch ($code) {
         case 200:
-            $message = "Usuario encontrado";
+            $message = "User found";
             break;
         case 404:
             $message = "Not found";
             break;
         case 409:
-            $message = "Usuario no encontrado";
+            $message = "User not found";
             break;
             }
             $body = new stdClass();
