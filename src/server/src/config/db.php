@@ -13,7 +13,7 @@
 
 /**
  * DataBase
- * 
+ *
  * @category   Class
  * @package    DataBase
  * @subpackage Controller
@@ -31,16 +31,16 @@ class DataBase
     /**
      * Funciton __construct
      */
-    function __construct() 
+    function __construct()
     {
-        $this->$db_host = $_ENV['db_hostname'];
-        $this->$db_user = $_ENV['db_username'];
-        $this->$db_pass = $_ENV['db_userpass'];
-        $this->$db_name = $_ENV['db_schema'];
+        $this->_db_host = $_ENV['DB_HOSTNAME'];
+        $this->_db_user = $_ENV['DB_USERNAME'];
+        $this->_db_pass = $_ENV['DB_USERPASS'];
+        $this->_db_name = $_ENV['DB_SCHEMA'];
     }
     /**
      * Function connect
-     * 
+     *
      * @return $dbConnection
      */
     public function connect()
