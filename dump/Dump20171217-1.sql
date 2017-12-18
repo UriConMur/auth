@@ -4,7 +4,7 @@ USE `bbox_login`;
 --
 -- Host: 127.0.0.1    Database: bbox_login
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.5.5-10.1.29-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,17 +26,27 @@ DROP TABLE IF EXISTS `bbox_users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bbox_users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `user` varchar(45) NOT NULL,
-  `user_password` varchar(98) NOT NULL DEFAULT '$argon2i$v=19$m=1024,t=2,p=2$ZWl2WlkwSmMvS2hyN0tqVQ$klDVUlGrEHa8mivm53Pn+jlTumwp8FECnPSM6GtePgI',
+  `user` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `user_password` varchar(98) CHARACTER SET utf8 NOT NULL DEFAULT '$argon2i$v=19$m=1024,t=2,p=2$ZWl2WlkwSmMvS2hyN0tqVQ$klDVUlGrEHa8mivm53Pn+jlTumwp8FECnPSM6GtePgI',
   `is_active` tinyint(4) DEFAULT '1',
   `is_removed` tinyint(4) DEFAULT '0',
   `dt_last_activity` datetime DEFAULT NULL,
   `id_creator` int(11) NOT NULL DEFAULT '0',
-  `dt_created` datetime NOT NULL DEFAULT NOW(),
+  `dt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_UNIQUE` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bbox_users`
+--
+
+LOCK TABLES `bbox_users` WRITE;
+/*!40000 ALTER TABLE `bbox_users` DISABLE KEYS */;
+INSERT INTO `bbox_users` VALUES (8,'Paola','beliveo123',1,0,'2017-12-17 00:00:00',0,'2017-12-17 19:13:32');
+/*!40000 ALTER TABLE `bbox_users` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping events for database 'bbox_login'
@@ -73,7 +83,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
 BEGIN
@@ -81,20 +91,14 @@ BEGIN
 DECLARE GET_USER INT DEFAULT 2;
 
 CASE
-	WHEN case_type = GET_USER #This case get username and password, check its existence in bbox.users table
-	THEN
+	WHEN case_type = GET_USER THEN #This case get username and password, check its existence in bbox.users table
 		SET @user = SPLIT_STR_PARAM(data_value,"|-|",1);
-        SET @password = SPLIT_STR_PARAM(data_value,"|-|",2);
+        SET @pass = SPLIT_STR_PARAM(data_value,"|-|",2);
+        SET @condition_user_exist = (SELECT id_user FROM `bbox_users` WHERE user = @user AND user_password = @pass COLLATE utf8_bin);
 
-		IF((SELECT COUNT(*) FROM `bbox_users` WHERE user LIKE @user AND user_password LIKE @password)=1) THEN
-            UPDATE `bbox_users` SET is_active = 1 WHERE user LIKE @user;
-            UPDATE `bbox_users` SET dt_last_activity = CURDATE() WHERE user LIKE @user;
-            SET @login =1;
-		ELSE
-            SET @login = 0;
+		IF(LENGTH(@condition_user_exist)=1) THEN
+            SELECT @condition_user_exist as id_user;
 		END IF;
-
-        SELECT @login as uuid;
 END CASE;
 END ;;
 DELIMITER ;
@@ -112,4 +116,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-17 16:25:58
+-- Dump completed on 2017-12-17 20:13:40
