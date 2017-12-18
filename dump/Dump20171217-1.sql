@@ -32,7 +32,7 @@ CREATE TABLE `bbox_users` (
   `is_removed` tinyint(4) DEFAULT '0',
   `dt_last_activity` datetime DEFAULT NULL,
   `id_creator` int(11) NOT NULL DEFAULT '0',
-  `dt_created` datetime NOT NULL,
+  `dt_created` datetime NOT NULL DEFAULT NOW(),
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_UNIQUE` (`user`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
@@ -86,15 +86,15 @@ CASE
 		SET @user = SPLIT_STR_PARAM(data_value,"|-|",1);
         SET @password = SPLIT_STR_PARAM(data_value,"|-|",2);
 
-		IF((SELECT COUNT(*) FROM `bbox.users` WHERE user LIKE @user AND user_password LIKE @password)=1) THEN
-            UPDATE `bbox.users` SET is_active = 1 WHERE user LIKE @user;
-            UPDATE `bbox.users` SET dt_last_activity = CURDATE() WHERE user LIKE @user;
+		IF((SELECT COUNT(*) FROM `bbox_users` WHERE user LIKE @user AND user_password LIKE @password)=1) THEN
+            UPDATE `bbox_users` SET is_active = 1 WHERE user LIKE @user;
+            UPDATE `bbox_users` SET dt_last_activity = CURDATE() WHERE user LIKE @user;
             SET @login =1;
 		ELSE
             SET @login = 0;
 		END IF;
 
-        SELECT @login;
+        SELECT @login as uuid;
 END CASE;
 END ;;
 DELIMITER ;

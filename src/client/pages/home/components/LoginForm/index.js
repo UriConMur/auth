@@ -6,12 +6,12 @@ $(document).ready(
             e.preventDefault();
             var user = $("#username").val();
             var pass = $("#password").val();
-            var data_json = JSON.stringify({userName: user, password: pass});
+            var data_json = JSON.stringify({user: user, password: pass});
             $.ajax(
                 {
                     type:   "POST",
                     contentType: 'application/json',
-                    url: api_url+"/user/login/",
+                    url: api_url+"/api/user",
                     dataType: "json",
                     data:  data_json,
                     cache:  false,

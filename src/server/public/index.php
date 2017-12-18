@@ -11,7 +11,7 @@
  * @link     http://www.beliveo.net/bbox-login
  */
 require '../../../vendor/autoload.php';
-require '../../../config/environment.php';
+require_once '../../../config/environment.php';
 
 $app = new \Slim\App;
 
