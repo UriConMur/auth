@@ -26,28 +26,20 @@ $app->post(
         $editor = 100000;
         $sql = "CALL sp_login_user_get(:case, :data, :editor)";
         $results = getDBData($sql, $case, $data, $editor);
-        if (count($results)>0) {
-            $code = 200;
-        } else {
-            $code = 404;
-        }
-        switch ($code) {
-        case 200:
-            $message = "User found";
-            break;
-        case 404:
-            $message = "User not found";
-            break;
-        default:
-            $message = "Internal Error";
-            break;
-        }
+        
         $body = new stdClass();
         $status = new stdClass();
         $response_obj = new stdClass();
-        $body->user = $results[0];
-        $status->code = $code;
-        $status->message = $message;
+        if (count($results)>0) {
+            $body->user = $results[0];
+            $status->code = 200;
+            $status->message = "User found";
+            
+        } else {
+            $status->code = 404;
+            $status->message = "User not found";
+        }
+
         $response_obj->body = $body;
         $response_obj->status = $status;
 
