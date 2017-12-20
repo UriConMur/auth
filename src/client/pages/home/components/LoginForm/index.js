@@ -24,6 +24,14 @@ $(document).ready(
                         if (status == 404) {
                             if ( $("#wrong_data").hasClass("wrong_hidden") ) {
                                 $("#wrong_data").removeClass("wrong_hidden");
+                            } else {
+                                $("#wrong_data").addClass("wrong_shake");
+                                setTimeout(
+                                    function() { 
+                                        $("#wrong_data").removeClass("wrong_shake");
+                                    }, 
+                                    1000
+                                );
                             }
                             
                         } else {
@@ -34,6 +42,7 @@ $(document).ready(
                             console.log(window.atob(uuid));
                             var cookieInfo = "unou=" + uuid + "; expires=" + date + "; path=/";
                             document.cookie = cookieInfo;
+                            location.reload();
                         }
                         
                     },
