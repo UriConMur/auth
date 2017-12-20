@@ -91,6 +91,7 @@ DECLARE GET_USER INT DEFAULT 2;
 
 CASE
 	WHEN case_type = GET_USER THEN #This case get username and password, check its existence in bbox.users table, if this exist it returns the id_user, otherwise, nothing
+        SET @pass = SPLIT_STR_PARAM(data_value,"|-|",1);
         SET @pass = SPLIT_STR_PARAM(data_value,"|-|",2);
         SELECT id_user as uuid FROM `bbox_users` WHERE user = @user AND user_password = @pass COLLATE utf8_bin;
 END CASE;
