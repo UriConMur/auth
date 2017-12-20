@@ -20,18 +20,26 @@ $app->post(
     '/api/login',
     function (Request $request, Response $response) {
         $case = 2;
-        $user = trim($request->getParam("user"));
+        $username = trim($request->getParam("user"));
         $pass = trim($request->getParam("password"));
-        $data = join("|-|", array($user, $pass));
+        
+        $iterations = 100;
+        $seed = "f%uuu%erw9875487ot56.2{dskj-*/-*";
+        $enc_pass = hash_pbkdf2("sha256", $pass, $seed, $iterations, 35);
+        
+        $data = join("|-|", array($username, $enc_pass));
         $editor = 100000;
         $sql = "CALL sp_login_user_get(:case, :data, :editor)";
         $results = getDBData($sql, $case, $data, $editor);
         
         $body = new stdClass();
         $status = new stdClass();
+        $user = new stdClass();
         $response_obj = new stdClass();
         if (count($results)>0) {
-            $body->user = $results[0];
+            $user->uuid = base64_encode($results[0]->uuid);
+            $user->name = "beliveo";
+            $body->user = $user;
             $status->code = 200;
             $status->message = "User found";
             
