@@ -10,9 +10,15 @@
  * @license  https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
  * @link     http://www.beliveo.net/bbox-login
  */
-$cookie_name = "username";
-if (!isset($_COOKIE[$cookie_name])) {
+
+$uuid = "unou"; // unique number of user (uuid)
+if (!isset($_COOKIE[$uuid])) {
     include_once 'pages/home/index.php';
 } else {
-    header("location: http://www.beliveo.com");
+    if (isset($_GET['redirect_to'])) {
+        $redirect = $_GET['redirect_to'];
+        header("location: $redirect");
+    } else {
+        header("location: {$_ENV['DOMAIN']}/bbox-platform");
+    }
 }
