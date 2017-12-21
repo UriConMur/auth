@@ -22,12 +22,12 @@ $(document).ready(
                         var status = response.status.code;
                         
                         if (status == 404) {
-                            if ( $("#wrong_data").hasClass("wrong_hidden") ) {
+                            if ($("#wrong_data").hasClass("wrong_hidden") ) {
                                 $("#wrong_data").removeClass("wrong_hidden");
                             } else {
                                 $("#wrong_data").addClass("wrong_shake");
                                 setTimeout(
-                                    function() { 
+                                    function () { 
                                         $("#wrong_data").removeClass("wrong_shake");
                                     }, 
                                     1000
@@ -56,4 +56,5 @@ $(document).ready(
 
     }
 );
+
 
