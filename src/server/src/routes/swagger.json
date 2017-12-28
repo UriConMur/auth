@@ -1,0 +1,89 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Beliveo System Authentication",
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "summary": "Authenticate an user",
+        "tags": [
+          "user"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "required": true,
+            "description": "Username",
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "body",
+            "required": true,
+            "description": "Password Input",
+            "type": "string with hash format"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Found",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "404": {
+            "description": "User Not Found (Wrong Information)",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "default": {
+            "description": "Unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+    },
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "uuid",
+      ],
+      "properties": {
+        "uuid": {
+          "type": "string",
+          "format": "hashed btoa"
+        },
+        "name": {
+          "type": "string",
+        }
+      }
+    },
+    "Error": {
+      "required": [
+        "code",
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

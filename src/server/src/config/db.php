@@ -45,7 +45,7 @@ class DataBase
      */
     public function connect()
     {
-        $mysql_connect_str = "mysql:host=$this->_db_host; dbname=$this->_db_name;";
+        $mysql_connect_str = "mysql:host=$this->_db_host; dbname=$this->_db_name; ";
         $dbConnection = new PDO($mysql_connect_str, $this->_db_user, $this->_db_pass);
         $dbConnection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $dbConnection;

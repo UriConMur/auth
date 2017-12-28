@@ -6,3 +6,5 @@ Options +FollowSymlinks
 <Files .htaccess>
 deny from all
 </Files>
+
+Redirect /bbox-login/swagger http://localhost/bbox-login/?p=swagger

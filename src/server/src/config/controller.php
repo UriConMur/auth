@@ -13,12 +13,12 @@
 
 /**
  * Function getDBData
- * 
+ *
  * @param type $sql    Query
  * @param type $case   SP Case
  * @param type $data   Values
  * @param type $editor User
- * 
+ *
  * @return type
  */
 function getDBData($sql, $case = 0, $data = 0, $editor = 0)
@@ -44,12 +44,12 @@ function getDBData($sql, $case = 0, $data = 0, $editor = 0)
 
 /**
  * Function setDBData
- * 
+ *
  * @param type $sql    Query
  * @param type $case   SP Case
  * @param type $data   Values
  * @param type $editor User
- * 
+ *
  * @return type
  */
 function setDBData($sql, $case = 0, $data = 0, $editor = 0)
