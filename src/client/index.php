@@ -11,14 +11,21 @@
  * @link     http://www.beliveo.net/bbox-login
  */
 
-$uuid = "unou"; // unique number of user (uuid)
-if (!isset($_COOKIE[$uuid])) {
-    include_once 'pages/home/index.html';
+require '../../config/environment.php';
+
+$cookie_name = "unou";
+if (!isset($_COOKIE[$cookie_name])) {
+    include 'pages/login/index.html';
 } else {
-    if (isset($_GET['redirect_to'])) {
-        $redirect = $_GET['redirect_to'];
-        header("location: $redirect");
+    if (isset($_GET['p'])) {
+        $redirect = $_GET['p'];
+        include "pages/{$redirect}/index.html";
     } else {
-        header("location: {$_ENV['DOMAIN']}/bbox-platform");
+        if (isset($_GET['redirect_to'])) {
+            $redirect = $_GET['redirect_to'];
+            header("location: $redirect");
+        } else {
+            include 'pages/home/index.html';
+        }
     }
 }
