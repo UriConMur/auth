@@ -20,20 +20,20 @@ $(document).ready(
                     success: function (data, textStatus, jqXHR) {
                         var response = eval(data);
                         var status = response.status.code;
-                        
+
                         if (status == 404) {
                             if ($("#wrong_data").hasClass("wrong_hidden") ) {
                                 $("#wrong_data").removeClass("wrong_hidden");
                             } else {
                                 $("#wrong_data").addClass("wrong_shake");
                                 setTimeout(
-                                    function () { 
+                                    function () {
                                         $("#wrong_data").removeClass("wrong_shake");
-                                    }, 
+                                    },
                                     1000
                                 );
                             }
-                            
+
                         } else {
                             var uuid = response.body.user.uuid;
                             var date = new Date();
@@ -44,7 +44,7 @@ $(document).ready(
                             document.cookie = cookieInfo;
                             location.reload();
                         }
-                        
+
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                     }
@@ -56,5 +56,3 @@ $(document).ready(
 
     }
 );
-
-

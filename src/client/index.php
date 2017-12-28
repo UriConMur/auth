@@ -13,7 +13,7 @@
 
 $uuid = "unou"; // unique number of user (uuid)
 if (!isset($_COOKIE[$uuid])) {
-    include_once 'pages/home/index.php';
+    include_once 'pages/home/index.html';
 } else {
     if (isset($_GET['redirect_to'])) {
         $redirect = $_GET['redirect_to'];
