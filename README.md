@@ -26,10 +26,10 @@ Please read [CONTRIBUTING.md](https://github.com/SDBLV/bbox/blob/develop/CONTRIB
 
 ## Authors
 
-* **Uriel Contreras**
-* **Salvador Gonzalez**
-* **Paola Martinez**
-* **Juan Ruvalcaba**
+*   **Uriel Contreras**
+*   **Salvador Gonzalez**
+*   **Paola Martinez**
+*   **Juan Ruvalcaba**
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
