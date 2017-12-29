@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `bbox_users`;
 CREATE TABLE `bbox_users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `user_password` varchar(35) CHARACTER SET utf8 NOT NULL DEFAULT '152f8a32aeafa6a46e7eaf3e57efc692',
+  `user_password` varchar(35) CHARACTER SET utf8 NOT NULL DEFAULT 'f5a5d1e505092b674af2e6fe94ec9341b0b',
   `is_active` tinyint(4) DEFAULT '1',
   `is_removed` tinyint(4) DEFAULT '0',
   `dt_last_activity` datetime DEFAULT NULL,
