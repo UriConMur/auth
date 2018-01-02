@@ -11,6 +11,7 @@
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "scripts": {
+    "presniff": "phpcs --config-set installed_paths CodeSnifferRules/SDStandard/",
     "sniff": "phpcs --standard=CodeSnifferRules/SDStandard/ruleset.xml src/ & phpcs --standard=CodeSnifferRules/SDStandard/ruleset.xml  --report=summary src/",
     "fix": "phpcbf src/",
     "prepush": "phpcs src/ & phpcs --report=summary src/"
