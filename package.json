@@ -14,7 +14,7 @@
     "presniff": "phpcs --config-set installed_paths CodeSnifferRules/SDStandard",
     "sniff": "phpcs --standard=SDStandard src/ & phpcs --standard=SDStandard  --report=summary src/",
     "fix": "phpcbf src/",
-    "prepush": "npm run sniff"
+    "prepush": "phpcs --standard=SDStandard src/ & phpcs --standard=SDStandard  --report=summary src/"
   },
   "repository": {
     "type": "git",
