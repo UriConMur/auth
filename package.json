@@ -11,7 +11,7 @@
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "scripts": {
-    "sniff": "phpcs src/ & phpcs --report=summary src/",
+    "sniff": "phpcs --standard=CodeSnifferRules/SDStandard/ruleset.xml src/ & phpcs --standard=CodeSnifferRules/SDStandard/ruleset.xml  --report=summary src/",
     "fix": "phpcbf src/",
     "prepush": "phpcs src/ & phpcs --report=summary src/"
   },
