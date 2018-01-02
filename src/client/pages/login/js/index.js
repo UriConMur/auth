@@ -18,7 +18,7 @@ $(document).ready(
                     cache:  false,
                     beforeSend: function () {},
                     success: function (data, textStatus, jqXHR) {
-                        var response = eval(data);
+                        response = eval(data);
                         var status = response.status.code;
 
                         if (status == 404) {

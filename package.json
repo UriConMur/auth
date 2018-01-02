@@ -11,9 +11,10 @@
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "scripts": {
-    "sniff": "phpcs src/ & phpcs --report=summary src/",
+    "presniff": "phpcs --config-set installed_paths CodeSnifferRules/SDStandard",
+    "sniff": "phpcs --standard=SDStandard src/ & phpcs --standard=SDStandard  --report=summary src/",
     "fix": "phpcbf src/",
-    "prepush": "phpcs src/ & phpcs --report=summary src/"
+    "prepush": "phpcs --standard=SDStandard src/ & phpcs --standard=SDStandard  --report=summary src/"
   },
   "repository": {
     "type": "git",
