@@ -1,7 +1,7 @@
 $(document).ready(
     function () {
         var api_url = "src/server/public";
-        var get_user =  function (e) {
+        var get_user =  function (e) 
             e.preventDefault();
             var user = $("#username").val();
             var pass = $("#password").val();
