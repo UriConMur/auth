@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "presniff": "phpcs --config-set installed_paths CodeSnifferRules/SDStandard/",
-    "sniff": "phpcs --standard=CodeSnifferRules/SDStandard/ src/ & phpcs --standard=CodeSnifferRules/SDStandard  --report=summary src/",
+    "sniff": "phpcs --standard=SDStandard src/ & phpcs --standard=SDStandard  --report=summary src/",
     "fix": "phpcbf src/",
     "prepush": "phpcs src/ & phpcs --report=summary src/"
   },
