@@ -1,7 +1,6 @@
 $(document).ready(
     function () {
         var api_url = "src/server/public";
-
         var get_user =  function (e) {
             e.preventDefault();
             var user = $("#username").val();
@@ -18,7 +17,7 @@ $(document).ready(
                     cache:  false,
                     beforeSend: function () {},
                     success: function (data, textStatus, jqXHR) {
-                        var response = eval(data);
+                        response = eval(data);
                         var status = response.status.code;
 
                         if (status == 404) {

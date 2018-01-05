@@ -7,4 +7,4 @@ Options +FollowSymlinks
 deny from all
 </Files>
 
-Redirect /bbox-login/swagger http://localhost/bbox-login/?p=swagger
+Redirect /auth/swagger http://localhost/auth/?p=swagger

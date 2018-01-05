@@ -11,9 +11,10 @@
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "scripts": {
-    "sniff": "phpcs src/ & phpcs --report=summary src/",
+    "presniff": "phpcs --config-set installed_paths CodeSnifferRules/SDStandard",
+    "sniff": "phpcs --standard=SDStandard src/ & phpcs --standard=SDStandard  --report=summary src/",
     "fix": "phpcbf src/",
-    "prepush": "phpcs src/ & phpcs --report=summary src/"
+    "prepush": "npm run sniff"
   },
   "repository": {
     "type": "git",
@@ -21,7 +22,9 @@
   },
   "dependencies": {
     "font-awesome": "4.7.0",
-    "jquery": "^3.2.1"
+    "jquery": "^3.2.1",
+    "npm-git-install": "^0.3.0",
+    "BeliveoComponents": "git@github.com:SDBLV/beliveo-components-library.git"
   },
   "devDependencies": {
     "husky": "^0.14.3"
