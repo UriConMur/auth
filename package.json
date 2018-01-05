@@ -23,9 +23,7 @@
   "dependencies": {
     "font-awesome": "4.7.0",
     "jquery": "^3.2.1",
-    "npm-git-install": "^0.3.0"
-  },
-  "gitDependencies": {
+    "npm-git-install": "^0.3.0",
     "BeliveoComponents": "git@github.com:SDBLV/beliveo-components-library.git"
   },
   "devDependencies": {
