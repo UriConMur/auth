@@ -2,24 +2,24 @@ $(document).ready(
     function () {
         var api_url = "src/server/public";
 
-        var get_user =  function (e) {
+        var get_user = function (e) {
             e.preventDefault();
-            var user = $("#username").val();
-            var pass = $("#password").val();
-            var encPass = window.btoa(pass);
+            var user     = $("#username").val();
+            var pass     = $("#password").val();
+            var encPass  = window.btoa(pass);
             var dataJson = JSON.stringify({user: user, password: encPass});
             $.ajax(
                 {
                     type:   "POST",
                     contentType: 'application/json',
-                    url: api_url+"/user/login",
+                    url: api_url + "/user/login",
                     dataType: "json",
                     data:  dataJson,
                     cache:  false,
                     beforeSend: function () {},
                     success: function (data, textStatus, jqXHR) {
                         var response = eval(data);
-                        var status = response.status.code;
+                        var status   = response.status.code;
 
                         if (status == 404) {
                             if ($("#wrong_data").hasClass("wrong_hidden") ) {
@@ -40,7 +40,7 @@ $(document).ready(
                             date.setTime(date.getTime() + 7200000);
                             date = date.toUTCString();
                             console.log(window.atob(uuid));
-                            var cookieInfo = "unou=" + uuid + "; expires=" + date + "; path=/";
+                            var cookieInfo  = "unou=" + uuid + "; expires=" + date + "; path=/";
                             document.cookie = cookieInfo;
                             location.reload();
                         }
@@ -56,4 +56,3 @@ $(document).ready(
 
     }
 );
-
