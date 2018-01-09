@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `bbox_users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bbox_users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `user` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `user_password` varchar(35) CHARACTER SET utf8 NOT NULL DEFAULT '547d8c18df34f1201d78175fa4e0d66eb40',
+  `user` varchar(45) NOT NULL,
+  `user_password` varchar(35) NOT NULL DEFAULT 'f5a5d1e505092b674af2e6fe94ec9341b0b',
   `is_active` tinyint(4) DEFAULT '1',
   `is_removed` tinyint(4) DEFAULT '0',
   `dt_last_activity` datetime DEFAULT NULL,
@@ -35,7 +35,7 @@ CREATE TABLE `bbox_users` (
   `dt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_UNIQUE` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -111,4 +111,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-19 16:28:28
+-- Dump completed on 2018-01-02 17:01:02
