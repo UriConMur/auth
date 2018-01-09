@@ -1,6 +1,6 @@
 {
-  "title": "bBox",
-  "name": "BeliveoBOX",
+  "title": "auth-system",
+  "name": "auth-system",
   "version": "2.0.0",
   "description": "Beliveo Business Operations exchange",
   "license": "MIT",
