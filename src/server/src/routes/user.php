@@ -35,7 +35,7 @@ $app->post(
         $status       = new stdClass();
         $user         = new stdClass();
         $response_obj = new stdClass();
-        if (count($results) > 0 ) {
+        if (count($results) > 0) {
             $user->uuid      = base64_encode($results[0]->uuid);
             $user->name      = 'beliveo';
             $body->user      = $user;
