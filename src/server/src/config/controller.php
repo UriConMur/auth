@@ -1,15 +1,4 @@
 <?php
-/**
- * PHP Version 5
- *
- * Controller Doc Comment
- *
- * @category File
- * @package  Controller
- * @author   Salvador Gonzalez <salvador.gonzalez@beliveo.com>
- * @license  https://github.com/SDBLV/bbox-login/blob/develop/LICENSE.md MIT
- * @link     http://www.beliveo.net/bbox-login
- */
 
 /**
  * Function getDBData
@@ -21,7 +10,7 @@
  *
  * @return type
  */
-function getDBData( $sql, $case = 0, $data = 0, $editor = 0 ) 
+function getDbData( $sql, $case = 0, $data = 0, $editor = 0 )
 {
     try {
         //GET DB Object and Connect
@@ -37,7 +26,7 @@ function getDBData( $sql, $case = 0, $data = 0, $editor = 0 )
         $connection = null;
         $db         = null;
         return $results;
-    } catch ( PDOException $ex ) {
+    } catch (PDOException $ex) {
         echo '{"error": {"text": ' . $ex->getMessage() . '} }';
     }
 }
@@ -52,7 +41,7 @@ function getDBData( $sql, $case = 0, $data = 0, $editor = 0 )
  *
  * @return type
  */
-function setDBData( $sql, $case = 0, $data = 0, $editor = 0 ) 
+function setDbData( $sql, $case = 0, $data = 0, $editor = 0 )
 {
     try {
         //GET DB Object and Connect
@@ -68,7 +57,7 @@ function setDBData( $sql, $case = 0, $data = 0, $editor = 0 )
         $connection = null;
         $db         = null;
         return $results;
-    } catch ( PDOException $ex ) {
+    } catch (PDOException $ex) {
         echo '{"error": {"text": ' . $ex->getMessage() . '} }';
     }
 }

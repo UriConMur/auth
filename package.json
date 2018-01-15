@@ -11,10 +11,11 @@
     "Juan Ruvalcaba (juan.ruvalcaba@beliveo.com)"
   ],
   "scripts": {
-    "presniff": "phpcs --config-set installed_paths rules/SD-Standard",
-    "sniff": "phpcs --standard=SD-Standard src/ & phpcs --standard=SD-Standard  --report=summary src/",
-    "fix": "phpcbf --standard=SD-Standard src/",
-    "prepush": "npm run sniff"
+    "fix": "phpcbf --standard=SDStandard src/",
+    "prepush": "npm run sniff",
+    "prepare": "npm install & composer install",
+    "presniff": "phpcs --config-set installed_paths rules",
+    "sniff": "phpcs --standard=SDStandard src/"
   },
   "repository": {
     "type": "git",
