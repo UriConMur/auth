@@ -1,7 +1,8 @@
 .env
 /node_modules
+package-lock.json
 .DS_Store
 /vendor
 composer.lock
-/config
+/config/environment.php
 /nbproject

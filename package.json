@@ -13,7 +13,6 @@
   "scripts": {
     "fix": "phpcbf --standard=SDStandard src/",
     "prepush": "npm run sniff",
-    "prepare": "npm install & composer install",
     "presniff": "phpcs --config-set installed_paths rules",
     "sniff": "phpcs --standard=SDStandard src/"
   },
