@@ -16,3 +16,4 @@ Removed- Features Removal
 - Add Wiki for Authentication System
 - Add API Integration Slimp
 - Add SWAGGER Documentation
+- Add Header and Footer Components
