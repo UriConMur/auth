@@ -5,7 +5,7 @@
   <link rel="stylesheet" type="text/css" href="node_modules/beliveo-files/styles/main.css">
 </head>
 <body>
-<?php require_once '../../node_modules/beliveo-components/components/header.php'; ?>
+<?php require_once '../../node_modules/beliveo-files/components/header.php'; ?>
 <div class="body_container">
     <?php
       require '../../config/environment.php';
@@ -28,6 +28,6 @@
     ?>
 </div>
 
-<?php require_once '../../node_modules/beliveo-components/components/footer.php'; ?>
+<?php require_once '../../node_modules/beliveo-files/components/footer.php'; ?>
 </body>
 </html>
