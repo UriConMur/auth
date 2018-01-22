@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Beliveo</title>
-  <link rel="stylesheet" type="text/css" href="src/client/styles/main.css">
+  <link rel="stylesheet" type="text/css" href="node_modules/beliveo-files/styles/main.css">
 </head>
 <body>
 <?php require_once '../../node_modules/beliveo-components/components/header.php'; ?>
