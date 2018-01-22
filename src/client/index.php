@@ -21,7 +21,7 @@
                 $redirect = $_GET['redirect_to'];
                 header("location: $redirect");
             } else {
-                include 'pages/home/index.html';
+                header("location: {$_ENV['DOMAIN']}/bbox");
             }
         }
     }
