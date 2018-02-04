@@ -1,7 +1,6 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 body {
@@ -36,7 +35,7 @@ body {
   outline: none;
   background: #fff;
   display: block;
-  width: 100%;
+  width: calc(100% - 30px);
   padding: 10px 15px;
   border: none;
   border-radius: 2px;
