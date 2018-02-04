@@ -7,4 +7,6 @@ Options +FollowSymlinks
 deny from all
 </Files>
 
-Redirect /auth/swagger http://localhost/auth/?p=swagger
+RewriteEngine On
+RewriteRule ^(node_modules|src)($|/) - [L]
+RewriteRule ^(.+) http://localhost/app-template/?p=$1 [R]

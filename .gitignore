@@ -6,4 +6,3 @@ package-lock.json
 composer.lock
 /config/environment.php
 /nbproject
-.htaccess
