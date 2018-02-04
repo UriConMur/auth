@@ -1,0 +1,12 @@
+DirectoryIndex src/client/index.php
+
+Options -Indexes
+Options +FollowSymlinks
+
+<Files .htaccess>
+deny from all
+</Files>
+
+RewriteEngine On
+RewriteRule ^(node_modules|src)($|/) - [L]
+RewriteRule ^(.+) http://localhost/app-template/?p=$1 [R]
