@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Beliveo</title>
+<title>Beliveo Authentication</title>
   <script src="src/client/utils/urlFix/index.js"></script>
   <link rel="stylesheet" type="text/css" href="node_modules/beliveo-files/styles/main.css">
 </head>
@@ -9,9 +9,11 @@
 <?php require_once '../../node_modules/beliveo-files/components/header.php'; ?>
 <div class="body_container">
     <?php
+      session_start();
       require '../../config/environment.php';
       $cookie_name = 'unou';
     if (! isset($_COOKIE[ $cookie_name ])) {
+        session_destroy();
         include 'pages/login/index.html';
     } else {
         if (isset($_GET['p'])) {
