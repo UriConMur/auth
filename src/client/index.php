@@ -2,6 +2,7 @@
 <html>
 <head>
 <title>Beliveo</title>
+  <script src="src/client/utils/urlFix/index.js"></script>
   <link rel="stylesheet" type="text/css" href="node_modules/beliveo-files/styles/main.css">
 </head>
 <body>

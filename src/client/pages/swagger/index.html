@@ -1,9 +1,4 @@
-<!-- HTML for static distribution bundle build -->
-<!DOCTYPE html>
-<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Swagger UI</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="src/client/utils/swagger/swagger-ui.css" >
   <link rel="icon" type="image/png" href="src/client/utils/swagger/favicon-32x32.png" sizes="32x32" />
@@ -15,21 +10,23 @@
       overflow: -moz-scrollbars-vertical;
       overflow-y: scroll;
     }
-    *,
-    *:before,
-    *:after
-    {
-      box-sizing: inherit;
-    }
 
     body {
       margin:0;
       background: #fafafa;
     }
+
+    .topbar, .scheme-container {
+      display: none;
+    }
+
+    .information-container .info {
+      margin: 0;
+    }
   </style>
 </head>
 
-<body>
+<div>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;width:0;height:0">
   <defs>
@@ -69,12 +66,11 @@
 
 <script src="src/client/utils/swagger/swagger-ui-bundle.js"> </script>
 <script src="src/client/utils/swagger/swagger-ui-standalone-preset.js"> </script>
-<script src="src/client/utils/urlFix/index.js"></script>
 <script>
 window.onload = function() {
   var protocol = window.location.protocol;
   var host = window.location.hostname;
-  var urlJson = protocol+"//"+host+"/auth/src/server/src/routes/swagger.json";
+  var urlJson = protocol+"//"+host+"/app-template/src/server/src/routes/swagger.json";
   // Build a system
   const ui = SwaggerUIBundle({
     url: urlJson,
@@ -93,10 +89,4 @@ window.onload = function() {
   window.ui = ui
 }
 </script>
-</body>
-<style>
-  .topbar {
-    display: none;
-  }
-</style>
-</html>
+</div>
