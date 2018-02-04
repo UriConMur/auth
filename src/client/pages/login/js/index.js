@@ -36,12 +36,14 @@ $(document).ready(
 
                         } else {
                             var uuid = response.body.user.uuid;
+                            var employee_id = response.body.user.id_employee;
+                            var position_id = response.body.user.id_position;
+                            var name = response.body.user.name;
                             var date = new Date();
                             date.setTime(date.getTime() + 7200000);
                             date = date.toUTCString();
                             console.log(window.atob(uuid));
-                            var cookieInfo  = "unou=" + uuid + "; expires=" + date + "; path=/";
-                            document.cookie = cookieInfo;
+                            document.cookie  = "unou=" + uuid + "; expires=" + date + "; path=/";
                             location.reload();
                         }
 

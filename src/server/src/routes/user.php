@@ -25,11 +25,13 @@ $app->post(
         $response_obj = new stdClass();
         if (count($results) > 0) {
             $user->uuid      = base64_encode($results[0]->uuid);
-            $user->name      = 'beliveo';
             $body->user      = $user;
             $status->code    = 200;
             $status->message = 'User found';
-
+            session_start();
+            $_SESSION["id_employee"]=$results[0]->id_employee;
+            $_SESSION["id_position"]=$results[0]->id_position;
+            $_SESSION["name_employee"]=$results[0]->name;
         } else {
             $status->code    = 404;
             $status->message = 'User not found';
