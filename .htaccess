@@ -9,4 +9,4 @@ deny from all
 
 RewriteEngine On
 RewriteRule ^(node_modules|src)($|/) - [L]
-RewriteRule ^(.+) http://localhost/app-template/?p=$1 [R]
+RewriteRule ^(.+) http://%{HTTP_HOST}/auth/?p=$1 [R]
