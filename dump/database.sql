@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `bbox_login` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `bbox_login`;
 -- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: bbox_login
 -- ------------------------------------------------------
--- Server version	5.5.5-10.1.29-MariaDB
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -26,8 +24,8 @@ DROP TABLE IF EXISTS `bbox_users`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bbox_users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `user` varchar(45) NOT NULL,
-  `user_password` varchar(35) NOT NULL DEFAULT 'f5a5d1e505092b674af2e6fe94ec9341b0b',
+  `user` varchar(45) CHARACTER SET utf8 NOT NULL,
+  `user_password` varchar(35) CHARACTER SET utf8 NOT NULL DEFAULT '547d8c18df34f1201d78175fa4e0d66eb40',
   `is_active` tinyint(4) DEFAULT '1',
   `is_removed` tinyint(4) DEFAULT '0',
   `dt_last_activity` datetime DEFAULT NULL,
@@ -35,17 +33,8 @@ CREATE TABLE `bbox_users` (
   `dt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_UNIQUE` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bbox_users`
---
-
-LOCK TABLES `bbox_users` WRITE;
-/*!40000 ALTER TABLE `bbox_users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bbox_users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Dumping events for database 'bbox_login'
@@ -64,7 +53,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
 DELIMITER ;;
-CREATE FUNCTION `SPLIT_STR_PARAM`(x TEXT, delim VARCHAR(12),pos INT) RETURNS text CHARSET utf8
+CREATE DEFINER=`skip-grants user`@`skip-grants host` FUNCTION `SPLIT_STR_PARAM`(x TEXT, delim VARCHAR(12),pos INT) RETURNS text CHARSET utf8
 RETURN REPLACE
 	(SUBSTRING(SUBSTRING_INDEX(x, delim, pos),
 	LENGTH(SUBSTRING_INDEX(x, delim, pos -1)) + 1),
@@ -82,9 +71,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
+CREATE DEFINER=`skip-grants user`@`skip-grants host` PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
 BEGIN
 
 DECLARE GET_USER INT DEFAULT 2;
@@ -93,7 +82,19 @@ CASE
 	WHEN case_type = GET_USER THEN #This case get username and password, check its existence in bbox.users table, if this exist it returns the id_user, otherwise, nothing
         SET @user = SPLIT_STR_PARAM(data_value,"|-|",1);
         SET @pass = SPLIT_STR_PARAM(data_value,"|-|",2);
-        SELECT id_user as uuid FROM `bbox_users` WHERE user = @user AND user_password = @pass COLLATE utf8_bin;
+        
+        SELECT id_user
+        INTO @id_user
+        FROM `bbox_users` 
+        WHERE user = @user AND user_password = @pass COLLATE utf8_bin;
+        
+        SELECT
+			@id_user as uuid,
+            id_employee as id_employee,
+            id_position as id_position,
+            shortName as name
+		FROM bbox_personnel.e_employee where id_user = @id_user LIMIT 1;
+        
 END CASE;
 END ;;
 DELIMITER ;
@@ -111,4 +112,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-02 17:01:02
+-- Dump completed on 2018-02-04 18:00:55
