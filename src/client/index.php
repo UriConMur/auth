@@ -10,7 +10,9 @@
 <?php require_once '../../node_modules/beliveo-files/components/header.php'; ?>
 <div class="body_container">
     <?php
-      session_start();
+      if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
       $cookie_name = 'unou';
     if (! isset($_COOKIE[ $cookie_name ])) {
         session_destroy();
