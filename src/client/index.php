@@ -2,19 +2,19 @@
 <html>
 <head>
 <title>Beliveo Authentication</title>
-  <script src="src/client/utils/urlFix/index.js"></script>
+  <script src="node_modules/beliveo-files/utils/urlFix/index.js"></script>
   <link rel="stylesheet" type="text/css" href="node_modules/beliveo-files/styles/main.css">
 </head>
 <body>
+<?php require '../../config/environment.php'; ?>
 <?php require_once '../../node_modules/beliveo-files/components/header.php'; ?>
 <div class="body_container">
     <?php
       session_start();
-      require '../../config/environment.php';
       $cookie_name = 'unou';
     if (! isset($_COOKIE[ $cookie_name ])) {
         session_destroy();
-        include 'pages/login/index.html';
+        include 'pages/login/index.php';
     } else {
         if (isset($_GET['p'])) {
             $redirect = $_GET['p'];
