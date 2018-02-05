@@ -10,7 +10,9 @@
 <?php require_once '../../node_modules/beliveo-files/components/header.php'; ?>
 <div class="body_container">
     <?php
-      session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
       $cookie_name = 'unou';
     if (! isset($_COOKIE[ $cookie_name ])) {
         session_destroy();
@@ -18,7 +20,7 @@
     } else {
         if (isset($_GET['p'])) {
             $redirect = $_GET['p'];
-            include "pages/{$redirect}/index.html";
+            include "pages/{$redirect}/index.php";
         } else {
             if (isset($_GET['redirect_to'])) {
                 $redirect = $_GET['redirect_to'];

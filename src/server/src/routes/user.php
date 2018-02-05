@@ -28,7 +28,6 @@ $app->post(
             $body->user      = $user;
             $status->code    = 200;
             $status->message = 'User found';
-            session_start();
             $_SESSION["id_employee"]=$results[0]->id_employee;
             $_SESSION["id_position"]=$results[0]->id_position;
             $_SESSION["name_employee"]=$results[0]->name;
