@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `bbox_login` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bbox_login`;
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
--- Host: 127.0.0.1    Database: bbox_login
+-- Host: localhost    Database: bbox_login
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.6.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -25,7 +27,7 @@ DROP TABLE IF EXISTS `bbox_users`;
 CREATE TABLE `bbox_users` (
   `id_user` int(11) NOT NULL AUTO_INCREMENT,
   `user` varchar(45) CHARACTER SET utf8 NOT NULL,
-  `user_password` varchar(35) CHARACTER SET utf8 NOT NULL DEFAULT '547d8c18df34f1201d78175fa4e0d66eb40',
+  `user_password` varchar(35) COLLATE utf8_bin NOT NULL DEFAULT 'f5a5d1e505092b674af2e6fe94ec9341b0b',
   `is_active` tinyint(4) DEFAULT '1',
   `is_removed` tinyint(4) DEFAULT '0',
   `dt_last_activity` datetime DEFAULT NULL,
@@ -33,7 +35,7 @@ CREATE TABLE `bbox_users` (
   `dt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_UNIQUE` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +45,34 @@ CREATE TABLE `bbox_users` (
 --
 -- Dumping routines for database 'bbox_login'
 --
+/*!50003 DROP FUNCTION IF EXISTS `RANDOM_ID` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `RANDOM_ID`() RETURNS text CHARSET utf8
+BEGIN
+	SET @numberRandom = FLOOR(10000 * RAND());
+    
+    SET @numberRandom = (
+		SELECT
+		IF(LENGTH(@numberRandom) > 3,
+			(MID(@numberRandom,1,3)),
+            @numberRandom
+		));
+
+RETURN @numberRandom;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP FUNCTION IF EXISTS `SPLIT_STR_PARAM` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -51,13 +81,32 @@ CREATE TABLE `bbox_users` (
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`skip-grants user`@`skip-grants host` FUNCTION `SPLIT_STR_PARAM`(x TEXT, delim VARCHAR(12),pos INT) RETURNS text CHARSET utf8
+CREATE DEFINER=`root`@`localhost` FUNCTION `SPLIT_STR_PARAM`(x TEXT, delim VARCHAR(12),pos INT) RETURNS text CHARSET utf8
 RETURN REPLACE
 	(SUBSTRING(SUBSTRING_INDEX(x, delim, pos),
 	LENGTH(SUBSTRING_INDEX(x, delim, pos -1)) + 1),
 	delim, '') ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `USER_EXIST` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_EXIST`(user TEXT) RETURNS text CHARSET utf8
+BEGIN
+	RETURN (select COUNT(*) from bbox_login.bbox_users where SUBSTRING_INDEX(bbox_login.bbox_users.user,'.',2) = user);
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -71,9 +120,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`skip-grants user`@`skip-grants host` PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
 BEGIN
 
 DECLARE GET_USER INT DEFAULT 2;
@@ -102,6 +151,63 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_login_user_set` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_set`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
+BEGIN
+
+DECLARE SET_NEW_USER INT DEFAULT 1;
+
+CASE
+	WHEN case_type = SET_NEW_USER THEN 
+		SET data_value = LOWER(data_value);
+
+		SET @name = SPLIT_STR_PARAM(data_value,"|-|",1);
+		SET @middle = SPLIT_STR_PARAM(data_value,"|-|",2);
+		SET @last_name = SPLIT_STR_PARAM(data_value,"|-|",3);
+		SET @second_last = SPLIT_STR_PARAM(data_value,"|-|",4);
+
+		IF USER_EXIST(CONCAT(@name,'.',@last_name)) = 0 THEN 
+			SET @shortName = SUBSTRING(CONCAT(@name,'.',@last_name),1,16);
+		ELSEIF LENGTH(@second_last) && USER_EXIST(CONCAT(@name,'.',@second_last)) = 0 THEN
+			SET @shortName = SUBSTRING(CONCAT(@name,'.',@second_last),1,16);
+		ELSEIF LENGTH(@middle) && USER_EXIST(CONCAT(@name,'.', @middle))= 0 THEN
+			SET @shortName = SUBSTRING(CONCAT(@name,'.', @middle),1,16);
+		ELSEIF LENGTH(@middle) && USER_EXIST(CONCAT(@middle,'.',@last_name)) = 0 THEN
+			SET @shortName = SUBSTRING(CONCAT(@middle,'.',@last_name),1,16);
+		ELSEIF LENGTH(@middle) && LENGTH(@second_last) && USER_EXIST(CONCAT(@middle,'.',@second_last)) = 0 THEN
+			SET @shortName = SUBSTRING(CONCAT(@middle,'.',@second_last),1,16);
+		ELSE 
+			SET @shortName = SUBSTRING(CONCAT(@name,'.',LEFT(@last_name, LENGTH(@last_name)-2)),1,16);
+		END IF;
+        
+		IF SUBSTRING(@shortName,16) = '.' THEN
+			SET @shortName = REPLACE(@shortName,'.','');
+		END IF;
+        
+		SET @user = CONCAT(@shortName, '.',RANDOM_ID());
+		
+        WHILE ((select COUNT(*) from bbox_login.bbox_users where user = @user and is_active = 1)>0) DO
+			SET @user = CONCAT(@shortName, '.',RANDOM_ID());
+		END WHILE;
+
+		INSERT INTO bbox_login.bbox_users(user, id_creator) values(@user, id_modifier);
+
+END CASE;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -112,4 +218,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-04 18:00:55
+-- Dump completed on 2018-02-08 15:27:04
