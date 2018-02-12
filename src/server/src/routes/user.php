@@ -42,3 +42,36 @@ $app->post(
         echo json_encode($response_obj);
     }
 );
+
+$app->post(
+    '/user/create', function (Request $request, Response $response) {
+    	$case = 1;
+      $name = $request->getParam("name");
+      $middle = $request->getParam("middle");
+      $last = $request->getParam("last");
+      $second = $request->getParam("second");
+
+    	$data=join('|-|', array($name, $middle, $last, $second));
+      $editor = 100000;
+      $sql = "CALL sp_login_user_set(:case, :data, :editor)";
+	    $results = getDBData($sql, $case, $data, $editor);
+
+      $user         = new stdClass();
+      $status       = new stdClass();
+      $response_obj = new stdClass();
+
+      if (count($results) > 0) {
+          $user->cun      = $results[0]->cun;
+          $status->code    = 200;
+          $status->message = 'User created';
+      } else {
+          $status->code    = 404;
+          $status->message = 'User not created';
+      }
+
+      $response_obj->user   = $user;
+      $response_obj->status = $status;
+
+      echo json_encode($response_obj);
+    }
+);
