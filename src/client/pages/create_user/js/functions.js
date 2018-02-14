@@ -25,18 +25,18 @@ $(document).ready(
                             var message_console = response.status.message_console;
 
                             switch (code) {
-                              case 201:
+                            case 201:
                                 var cun = response.user.user;
                                 $("#txtNewUser").val(cun);
                                 break;
-                              case 500:
+                            case 500:
                                 alert(message);
                                 break;
-                              case 504:
+                            case 504:
                                 alert(message);
                                 console.log(message_console);
                                 break;
-                              default:
+                            default:
                                 console.log(message_console);
                             }
                         },
