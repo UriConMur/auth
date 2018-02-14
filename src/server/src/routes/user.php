@@ -15,7 +15,7 @@ $app->post(
         $seed       = 'f%uuu%erw9875487ot56.2{dskj-*/-*';
         $enc_pass   = hash_pbkdf2('sha256', $pass, $seed, $iterations, 35);
         $data       = join('|-|', array( $username, $enc_pass ));
-        $editor     = 100000;
+        $editor     = $_SESSION['id_employee'];
         $sql        = 'CALL sp_login_user_get(:case, :data, :editor)';
         $results    = getDBData($sql, $case, $data, $editor);
 
@@ -52,7 +52,7 @@ $app->post(
       $second = $request->getParam("second");
 
     	$data=join('|-|', array($name, $middle, $last, $second));
-      $editor = 100000;
+      $editor = $_SESSION['id_employee'];
       $sql = "CALL sp_login_user_set(:case, :data, :editor)";
 	    $results = getDBData($sql, $case, $data, $editor);
 
@@ -62,10 +62,10 @@ $app->post(
 
       if (count($results) > 0) {
           $user->cun      = $results[0]->cun;
-          $status->code    = 200;
+          $status->code    = 201;
           $status->message = 'User created';
       } else {
-          $status->code    = 404;
+          $status->code    = 500;
           $status->message = 'User not created';
       }
 
