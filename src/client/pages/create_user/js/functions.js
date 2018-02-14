@@ -20,15 +20,25 @@ $(document).ready(
                         beforeSend: function () {},
                         success: function (data, textStatus, jqXHR) {
                             var response = eval(data);
-                            var status = response.status.code;
+                            var code = response.status.code;
                             var message = response.status.message;
+                            var message_console = response.status.message_console;
 
-                            if (status == 404) {
-                                console.log(message);
-                            } else {
-                                var cun = response.user.cun;
+                            switch (code) {
+                              case 201:
+                                var cun = response.user.user;
                                 $("#txtNewUser").val(cun);
-                            };
+                                break;
+                              case 500:
+                                alert(message);
+                                break;
+                              case 504:
+                                alert(message);
+                                console.log(message_console);
+                                break;
+                              default:
+                                console.log(message_console);
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             console.log(errorThrown);
@@ -37,7 +47,6 @@ $(document).ready(
                 );
             } else {
                 alert("Name and Last name can not be empty");
-                console.log("error");
             }
         }
 

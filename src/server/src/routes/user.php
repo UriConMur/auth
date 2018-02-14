@@ -60,13 +60,23 @@ $app->post(
         $status       = new stdClass();
         $response_obj = new stdClass();
 
-        if (count($results) > 0) {
-            $user->cun      = $results[0]->cun;
+        $count_results = count($results);
+
+        switch ($count_results) {
+          case 0:
+            $status->code    = 500;
+            $status->message = 'Server error, user not created';
+            break;
+          case 1:
+            $user->user      = $results[0]->user;
             $status->code    = 201;
             $status->message = 'User created';
-        } else {
-            $status->code    = 500;
-            $status->message = 'User not created';
+            break;
+          default:
+            $status->code    = 504;
+            $status->message = 'Gateway timeout, user not created';
+            $status->message_console = $results[0] ->cun;
+            break;
         }
 
         $response_obj->user   = $user;

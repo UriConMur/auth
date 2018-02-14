@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `bbox_login` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `bbox_login`;
--- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
 --
--- Host: localhost    Database: bbox_login
+-- Host: 127.0.0.1    Database: bbox_login
 -- ------------------------------------------------------
--- Server version	5.6.35
+-- Server version	5.5.5-10.1.29-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -33,9 +31,11 @@ CREATE TABLE `bbox_users` (
   `dt_last_activity` datetime DEFAULT NULL,
   `id_creator` int(11) NOT NULL DEFAULT '0',
   `dt_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `id_modifier` int(11) DEFAULT NULL,
+  `dt_last_modifier` datetime DEFAULT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `user_UNIQUE` (`user`)
-) ENGINE=InnoDB AUTO_INCREMENT=92 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -55,18 +55,21 @@ CREATE TABLE `bbox_users` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `RANDOM_ID`() RETURNS text CHARSET utf8
+CREATE DEFINER=`root`@`localhost` FUNCTION `RANDOM_ID`(case_type INT, data_value TEXT) RETURNS int(11)
 BEGIN
-	SET @numberRandom = FLOOR(10000 * RAND());
-  
-  SET @numberRandom = (
-		SELECT
-		IF(LENGTH(@numberRandom) > 3,
-			(MID(@numberRandom,1,3)),
-            @numberRandom
-		));
+	DECLARE RANDOM_USER INT DEFAULT 1;
+	DECLARE SHORT_LAST_NAME INT DEFAULT 2;
 
-RETURN @numberRandom;
+    CASE
+		WHEN case_type = RANDOM_USER THEN
+			RETURN MID(FLOOR(10000 * RAND()),1,3);
+		WHEN case_type = SHORT_LAST_NAME THEN
+			SET @number_random = FLOOR(10 * RAND()) + 1;
+			WHILE (@number_random < 2 OR @number_random >= LENGTH(data_value)) DO
+				SET @number_random = SUBSTRING(FLOOR(100 * RAND()),1);
+			END WHILE;
+            RETURN @number_random;
+	END CASE;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -93,7 +96,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP FUNCTION IF EXISTS `USER_EXIST` */;
+/*!50003 DROP FUNCTION IF EXISTS `USER_NO_EXIST` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -101,11 +104,15 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `USER_EXIST`(user TEXT) RETURNS text CHARSET utf8
+CREATE DEFINER=`root`@`localhost` FUNCTION `USER_NO_EXIST`(user TEXT) RETURNS tinyint(1)
 BEGIN
-	RETURN (select COUNT(*) from bbox_login.bbox_users where SUBSTRING_INDEX(bbox_login.bbox_users.user,'.',2) = user);
+	IF (SELECT COUNT(*) FROM bbox_login.bbox_users WHERE SUBSTRING_INDEX(bbox_login.bbox_users.user,'.',2) = user) = 0 THEN
+		RETURN TRUE;
+	ELSE
+		RETURN FALSE;
+	END IF;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -159,104 +166,90 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_set`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
 BEGIN
 
-DECLARE SET_NEW_USER INT DEFAULT 1;
+DECLARE INSERT_NEW_USER INT DEFAULT 1;
+DECLARE MODIFY_USER INT DEFAULT 2;
+DECLARE DELETE_USER INT DEFAULT 3;
 
 CASE
-	WHEN case_type = SET_NEW_USER THEN
-		SET data_value = LOWER(data_value);
+	WHEN case_type = INSERT_NEW_USER THEN
+		SET data_value = REPLACE(LOWER(data_value), ' ','');
 
 		SET @name = SPLIT_STR_PARAM(data_value,"|-|",1);
 		SET @middle = SPLIT_STR_PARAM(data_value,"|-|",2);
 		SET @last_name = SPLIT_STR_PARAM(data_value,"|-|",3);
 		SET @second_last = SPLIT_STR_PARAM(data_value,"|-|",4);
 
-		IF USER_EXIST(CONCAT(@name,'.',@last_name)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@name,'.',@last_name),1,16);
-		ELSEIF LENGTH(@second_last) && USER_EXIST(CONCAT(@name,'.',@second_last)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@name,'.',@second_last),1,16);
-		ELSEIF LENGTH(@middle) && USER_EXIST(CONCAT(@name,'.', @middle))= 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@name,'.', @middle),1,16);
-		ELSEIF LENGTH(@middle) && USER_EXIST(CONCAT(@middle,'.',@last_name)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@middle,'.',@last_name),1,16);
-		ELSEIF LENGTH(@middle) && LENGTH(@second_last) && USER_EXIST(CONCAT(@middle,'.',@second_last)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@middle,'.',@second_last),1,16);
+		SET @name_last = CONCAT(@name,'.',@last_name);
+        SET @name_second_last = CONCAT(@name,'.',@second_last);
+        SET @name_middle = CONCAT(@name,'.', @middle);
+        SET @middle_last = CONCAT(@middle,'.',@last_name);
+        SET @middle_second = CONCAT(@middle,'.',@second_last);
+        SET @name_last_2 = CONCAT(@name,'.',MID(@last_name,1,RANDOM_ID(2,@last_name)));
+
+		IF USER_NO_EXIST(@name_last) THEN
+			SET @shortName = MID(@name_last,1,16);
+		ELSEIF LENGTH(@second_last) && USER_NO_EXIST(@name_second_last) THEN
+			SET @shortName = MID(@name_second_last,1,16);
+		ELSEIF LENGTH(@middle) && USER_NO_EXIST(@name_middle) THEN
+			SET @shortName = MID(@name_middle,1,16);
+		ELSEIF LENGTH(@middle) && USER_NO_EXIST(@middle_last) THEN
+			SET @shortName = MID(@middle_last,1,16);
+		ELSEIF LENGTH(@middle) && LENGTH(@second_last) && USER_NO_EXIST(@middle_second) THEN
+			SET @shortName = MID(@middle_second,1,16);
 		ELSE
-			SET @shortName = SUBSTRING(CONCAT(@name,'.',LEFT(@last_name, LENGTH(@last_name)-2)),1,16);
+			SET @shortName = MID(@name_last_2,1,16);
 		END IF;
 
 		IF SUBSTRING(@shortName,16) = '.' THEN
-			SET @shortName = REPLACE(@shortName,'.','');
+			SET @shortName = TRIM(TRAILING '.' FROM @shortName);
 		END IF;
 
-		SET @user = CONCAT(@shortName, '.',RANDOM_ID());
+		SET @user = CONCAT(@shortName, '.',RANDOM_ID(1,''));
 
-        WHILE ((select COUNT(*) from bbox_login.bbox_users where user = @user and is_active = 1)>0) DO
+        WHILE ((SELECT COUNT(*) FROM bbox_login.bbox_users WHERE user = @user AND is_active = 1)>0) DO
 			SET @user = CONCAT(@shortName, '.',RANDOM_ID());
 		END WHILE;
 
-		INSERT INTO bbox_login.bbox_users(user, id_creator) values(@user, id_modifier);
+		INSERT INTO bbox_login.bbox_users
+        (user,
+        id_creator,
+        id_modifier,
+        dt_last_modifier)
+        VALUES
+        (@user,
+        id_modifier,
+		id_modifier,
+        NOW());
 
-END CASE;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `sp_login_user_set` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_set`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
-BEGIN
+        SELECT user
+        FROM bbox_login.bbox_users
+        WHERE user = @user;
 
-DECLARE SET_NEW_USER INT DEFAULT 1;
+	WHEN case_type = MODIFY_USER THEN
+		SET @user_id = SPLIT_STR_PARAM(data_value,"|-|",1);
+		SET @new_password = SPLIT_STR_PARAM(data_value,"|-|",2);
 
-CASE
-	WHEN case_type = SET_NEW_USER THEN 
-		SET data_value = LOWER(data_value);
+        UPDATE bbox_login.bbox_users
+        SET
+        user_password = @new_password,
+        id_modifier = id_modifier,
+	    dt_last_modifier =NOW()
+        WHERE id_user = @user_id;
 
-		SET @name = SPLIT_STR_PARAM(data_value,"|-|",1);
-		SET @middle = SPLIT_STR_PARAM(data_value,"|-|",2);
-		SET @last_name = SPLIT_STR_PARAM(data_value,"|-|",3);
-		SET @second_last = SPLIT_STR_PARAM(data_value,"|-|",4);
+	WHEN case_type = DELETE_USER THEN
+		SET @user_id = SPLIT_STR_PARAM(data_value,"|-|",1);
 
-		IF USER_EXIST(CONCAT(@name,'.',@last_name)) = 0 THEN 
-			SET @shortName = SUBSTRING(CONCAT(@name,'.',@last_name),1,16);
-		ELSEIF LENGTH(@second_last) && USER_EXIST(CONCAT(@name,'.',@second_last)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@name,'.',@second_last),1,16);
-		ELSEIF LENGTH(@middle) && USER_EXIST(CONCAT(@name,'.', @middle))= 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@name,'.', @middle),1,16);
-		ELSEIF LENGTH(@middle) && USER_EXIST(CONCAT(@middle,'.',@last_name)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@middle,'.',@last_name),1,16);
-		ELSEIF LENGTH(@middle) && LENGTH(@second_last) && USER_EXIST(CONCAT(@middle,'.',@second_last)) = 0 THEN
-			SET @shortName = SUBSTRING(CONCAT(@middle,'.',@second_last),1,16);
-		ELSE 
-			SET @shortName = SUBSTRING(CONCAT(@name,'.',LEFT(@last_name, LENGTH(@last_name)-2)),1,16);
-		END IF;
-        
-		IF SUBSTRING(@shortName,16) = '.' THEN
-			SET @shortName = REPLACE(@shortName,'.','');
-		END IF;
-        
-		SET @user = CONCAT(@shortName, '.',RANDOM_ID());
-		
-        WHILE ((select COUNT(*) from bbox_login.bbox_users where user = @user and is_active = 1)>0) DO
-			SET @user = CONCAT(@shortName, '.',RANDOM_ID());
-		END WHILE;
-
-		INSERT INTO bbox_login.bbox_users(user, id_creator) values(@user, id_modifier);
+		UPDATE bbox_login.bbox_users
+        SET
+        is_active = 0,
+		id_modifier = id_modifier,
+        dt_last_modifier = NOW()
+        WHERE id_user = @user_id;
 
 END CASE;
 END ;;
@@ -275,4 +268,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-02-08 15:27:04
+-- Dump completed on 2018-02-14 13:45:48
