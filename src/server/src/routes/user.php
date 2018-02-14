@@ -45,33 +45,33 @@ $app->post(
 
 $app->post(
     '/user/create', function (Request $request, Response $response) {
-    	$case = 1;
-      $name = $request->getParam("name");
-      $middle = $request->getParam("middle");
-      $last = $request->getParam("last");
-      $second = $request->getParam("second");
+        $case = 1;
+        $name = $request->getParam("name");
+        $middle = $request->getParam("middle");
+        $last = $request->getParam("last");
+        $second = $request->getParam("second");
 
-    	$data=join('|-|', array($name, $middle, $last, $second));
-      $editor = $_SESSION['id_employee'];
-      $sql = "CALL sp_login_user_set(:case, :data, :editor)";
-	    $results = getDBData($sql, $case, $data, $editor);
+        $data=join('|-|', array($name, $middle, $last, $second));
+        $editor = $_SESSION['id_employee'];
+        $sql = "CALL sp_login_user_set(:case, :data, :editor)";
+        $results = getDBData($sql, $case, $data, $editor);
 
-      $user         = new stdClass();
-      $status       = new stdClass();
-      $response_obj = new stdClass();
+        $user         = new stdClass();
+        $status       = new stdClass();
+        $response_obj = new stdClass();
 
-      if (count($results) > 0) {
-          $user->cun      = $results[0]->cun;
-          $status->code    = 201;
-          $status->message = 'User created';
-      } else {
-          $status->code    = 500;
-          $status->message = 'User not created';
-      }
+        if (count($results) > 0) {
+            $user->cun      = $results[0]->cun;
+            $status->code    = 201;
+            $status->message = 'User created';
+        } else {
+            $status->code    = 500;
+            $status->message = 'User not created';
+        }
 
-      $response_obj->user   = $user;
-      $response_obj->status = $status;
+        $response_obj->user   = $user;
+        $response_obj->status = $status;
 
-      echo json_encode($response_obj);
+        echo json_encode($response_obj);
     }
 );
