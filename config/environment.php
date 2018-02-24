@@ -1,7 +1,7 @@
 <?php
 
 $_ENV['DOMAIN'] = 'http://localhost';
-$_ENV['NAME_APP'] = 'app-template';
+$_ENV['NAME_APP'] = 'auth';
 $_ENV['LOGIN_URL'] = 'http://localhost/auth';
 $_ENV['API'] = '/src/server/public';
 $_ENV['DB_HOSTNAME'] = 'localhost';
