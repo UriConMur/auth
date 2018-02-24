@@ -3,6 +3,8 @@
 <head>
 <title>Beliveo Authentication</title>
   <script src="node_modules/beliveo-files/utils/urlFix/index.js"></script>
+  <link rel="stylesheet" type="text/css" href="node_modules/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="node_modules/beliveo-files/styles/main.css">
 </head>
 <body>
@@ -13,7 +15,8 @@ if (session_status() == PHP_SESSION_NONE) {
 require '../../config/environment.php';
 ?>
 <?php require_once '../../node_modules/beliveo-files/components/header.php'; ?>
-<div class="body_container">
+<div class='row'>
+  <div class="body_container col col-md-12">
     <?php
       $cookie_name = 'unou';
     if (! isset($_COOKIE[ $cookie_name ])) {
@@ -33,6 +36,7 @@ require '../../config/environment.php';
         }
     }
     ?>
+  </div>
 </div>
 
 <?php require_once '../../node_modules/beliveo-files/components/footer.php'; ?>
