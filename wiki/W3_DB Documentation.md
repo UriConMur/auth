@@ -11,9 +11,27 @@
 
 ## Stored procedures
 
-| <center>Name</center> | <center>Parameters</center>                             | <center>Description</center>                                                                         |
-| --------------------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| sp_login_user_get     | case_type INT <br/>data_value TEXT </br>id_modifier INT | Obtain data information from the bbox login app tables; has cases to identify the action to be taken |
+Each Stored Procedures contains the next parameters:
+
+| Name            | Type                  | Description                                                                                                            |
+| --------------- | --------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| **case_type**   | <center>INT</center>  | Each stored procedures contains 'cases', to identify each action this parameter is used that contains the case number. |
+| **data_value**  | <center>TEXT</center> | Contains all data to process in the SP.                                                                                |
+| **id_modifier** | <center>INT</center>  | contains the id of the employee who has modified the information.                                                     |
+
+Stored Procedures used:
+
+#### sp_login_user_get
+| <center>Case</center> | Id  | <center>Description</center>                              | <center>What's need</center> | <center>Return</center>                                            |
+| --------------------- | --- | --------------------------------------------------------- | ---------------------------- | ------------------------------------------------------------------ |
+| GET_USER              | 1   | Search a selected user, if it exists, it return user data | user and password            | id_user, id_employee, id_position and shortName of the select user |
+
+Search for a selected user, if it exists, return user data
+
+#### sp_login_user_set
+| <center>Case</center> | Id  | <center>Description</center>                                                                                                                                                              | <center>What's need</center>                                                       |
+| --------------------- | --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| SET_NEW_USER          | 1   | Creates a new user with its short name and random number, looks for that it does not exist to insert it in the table, if it exists it continues generating a new user until it is unique. | Not null: Name and Last name. They may not exist: middle name and second last name |
 
 ## Functions
 
