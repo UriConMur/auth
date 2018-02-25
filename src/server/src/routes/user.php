@@ -15,7 +15,7 @@ $app->post(
         $seed       = 'f%uuu%erw9875487ot56.2{dskj-*/-*';
         $enc_pass   = hash_pbkdf2('sha256', $pass, $seed, $iterations, 35);
         $data       = join('|-|', array( $username, $enc_pass ));
-        $editor     = $_SESSION['id_employee'];
+        $editor     = 100000;
         $sql        = 'CALL sp_login_user_get(:case, :data, :editor)';
         $results    = getDBData($sql, $case, $data, $editor);
 
@@ -63,19 +63,14 @@ $app->post(
         $count_results = count($results);
 
         switch ($count_results) {
-          case 0:
-            $status->code    = 500;
-            $status->message = 'Server error, user not created';
-            break;
-          case 1:
+        case 1:
             $user->user      = $results[0]->user;
             $status->code    = 201;
             $status->message = 'User created';
             break;
-          default:
-            $status->code    = 504;
-            $status->message = 'Gateway timeout, user not created';
-            $status->message_console = $results[0] ->cun;
+        default:
+            $status->code    = 500;
+            $status->message = 'Server error, user not created';
             break;
         }
 

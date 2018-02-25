@@ -31,9 +31,6 @@ $(document).ready(
                                 break;
                             case 500:
                                 alert(message);
-                                break;
-                            case 504:
-                                alert(message);
                                 console.log(message_console);
                                 break;
                             default:

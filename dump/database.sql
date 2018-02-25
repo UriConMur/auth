@@ -1,4 +1,6 @@
--- MySQL dump 10.13  Distrib 5.7.12, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `bbox_login` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bbox_login`;
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: bbox_login
 -- ------------------------------------------------------
@@ -55,7 +57,7 @@ CREATE TABLE `bbox_users` (
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `RANDOM_ID`(case_type INT, data_value TEXT) RETURNS int(11)
+CREATE FUNCTION `RANDOM_ID`(case_type INT, data_value TEXT) RETURNS int(11)
 BEGIN
 	DECLARE RANDOM_USER INT DEFAULT 1;
 	DECLARE SHORT_LAST_NAME INT DEFAULT 2;
@@ -86,7 +88,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `SPLIT_STR_PARAM`(x TEXT, delim VARCHAR(12),pos INT) RETURNS text CHARSET utf8
+CREATE FUNCTION `SPLIT_STR_PARAM`(x TEXT, delim VARCHAR(12),pos INT) RETURNS text CHARSET utf8
 RETURN REPLACE
 	(SUBSTRING(SUBSTRING_INDEX(x, delim, pos),
 	LENGTH(SUBSTRING_INDEX(x, delim, pos -1)) + 1),
@@ -106,7 +108,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `USER_NO_EXIST`(user TEXT) RETURNS tinyint(1)
+CREATE FUNCTION `USER_NO_EXIST`(user TEXT) RETURNS tinyint(1)
 BEGIN
 	IF (SELECT COUNT(*) FROM bbox_login.bbox_users WHERE SUBSTRING_INDEX(bbox_login.bbox_users.user,'.',2) = user) = 0 THEN
 		RETURN TRUE;
@@ -129,7 +131,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
+CREATE PROCEDURE `sp_login_user_get`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
 BEGIN
 
 DECLARE GET_USER INT DEFAULT 2;
@@ -168,7 +170,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_login_user_set`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
+CREATE PROCEDURE `sp_login_user_set`(IN case_type INT, IN data_value TEXT, IN id_modifier INT)
 BEGIN
 
 DECLARE INSERT_NEW_USER INT DEFAULT 1;

@@ -25,4 +25,4 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript" src="src/client/pages/create_user/js/functions.js"></script>
+<script type="text/javascript" src="src/client/pages/create-user/js/functions.js"></script>
